@@ -1,0 +1,145 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #121212;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.container {
+	width: 450px;
+	background: #1e1e1e;
+	padding: 30px;
+	border-radius: 15px;
+	box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+	text-align: center;
+}
+
+.form-box {
+	display: none;
+}
+
+.form-box.active {
+	display: block;
+}
+
+.input-container {
+	position: relative;
+	width: 100%;
+}
+
+.input-container {
+	position: relative;
+	width: 100%;
+}
+
+/* 左側のアイコン (すべての i タグが影響を受けないように共通設定) */
+.input-container i {
+	position: absolute;
+	left: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #fff;
+	font-size: 18px;
+}
+
+/* 右側のアイコン (ランダム生成ボタンのみに適用) */
+.input-container .fa-dice {
+	left: auto;
+	/* 左側の初期設定を無効化 */
+	right: 15px;
+	/* 右側に配置 */
+	cursor: pointer;
+	transition: color 0.3s ease-in-out;
+}
+
+.input-container .fa-dice:hover {
+	color:#40a33e;
+}
+
+input {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 15px 15px 15px 45px;
+	/* 左側にアイコン用のスペースを確保 */
+	margin: 15px 0;
+	border: 2px solid transparent;
+	border-radius: 8px;
+	background: #333;
+	color: #fff;
+	font-size: 16px;
+	transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+	border-color: #6200ea;
+	outline: none;
+	box-shadow: 0 0 8px rgba(98, 0, 234, 0.8);
+}
+
+button {
+	width: 100%;
+	margin: 20px 0;
+	padding: 10px;
+	border: none;
+	border-radius: 8px;
+	background: #6200ea;
+	color: #fff;
+	font-size: 18px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+button:hover {
+	background: #3700b3;
+}
+
+a {
+	color: #bb86fc;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+a:hover {
+	color: #6200ea;
+	text-decoration: underline;
+}
+
+.error-message {
+	color: red;
+	font-size: 14px;
+	display: none;
+}
+
+input.input-error {
+	border: 2px solid red !important;
+	box-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
+	background-color: rgba(255, 0, 0, 0.2);
+}
+
+.input-container.input-error input {
+	border: 2px solid red !important;
+	box-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
+	background-color: rgba(255, 0, 0, 0.2);
+}
+
+.tooltip {
+	position: absolute;
+	left: 100%;
+	top: 50%;
+	transform: translate(10px, -50%);
+	background: red;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 12px;
+	white-space: nowrap;
+	display: none;
+}
+
+.input-container.input-error .tooltip {
+	display: block;
+}
