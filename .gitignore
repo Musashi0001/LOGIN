@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 本物の設定ファイルをGitに含めない
+src/main/resources/application.properties
+
