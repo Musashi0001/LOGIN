@@ -14,12 +14,11 @@ public class SecurityConfig {
 		http
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("index.html", "/api/auth/**", "/css/**", "/js/**").permitAll()
+						.requestMatchers("index.html", "forgot-password.html", "/api/auth/**", "/css/**", "/js/**").permitAll()
 						.anyRequest().authenticated())
 				.formLogin(login -> login.disable())
 				.logout(logout -> logout.logoutUrl("/api/auth/logout")
 						.logoutSuccessHandler((req, res, auth) -> res.setStatus(200)));
-
 		return http.build();
 	}
 

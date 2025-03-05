@@ -76,7 +76,7 @@ document.getElementById("register-form").addEventListener("submit", async (event
 		return;
 	}
 
-	alert("登録が完了しました！ログインしてください");
+	showCustomAlert("登録が完了しました！ログインしてください", "success");
 	document.getElementById("show-login").click();
 });
 
@@ -91,7 +91,7 @@ document.getElementById("generate-username").addEventListener("click", async () 
 		const data = await response.json();
 		usernameInput.value = data.username;
 	} else {
-		alert("ユーザーネームの生成に失敗しました");
+		showCustomAlert("ユーザーネームの生成に失敗しました", "error");
 	}
 });
 
@@ -145,3 +145,38 @@ document.querySelectorAll("#login-form input, #register-form input").forEach(inp
 		document.getElementById("login-error-message").style.display = "none";
 	});
 });
+
+// カスタムアラートの表示関数
+function showCustomAlert(message, type = "info", duration = 3000) {
+	// 既存のアラートがあれば削除
+	const existingAlert = document.querySelector(".custom-alert");
+	if (existingAlert) {
+		existingAlert.remove();
+	}
+
+	// アラート要素を作成
+	const alertBox = document.createElement("div");
+	alertBox.classList.add("custom-alert", type);
+
+	// アイコンを設定
+	let iconClass = "fa-info-circle";
+	if (type === "success") iconClass = "fa-check-circle";
+	if (type === "error") iconClass = "fa-times-circle";
+	if (type === "warning") iconClass = "fa-exclamation-circle";
+
+	alertBox.innerHTML = `<i class="fa ${iconClass}"></i> ${message}`;
+
+	// body に追加
+	document.body.appendChild(alertBox);
+
+	// アニメーションで表示
+	setTimeout(() => {
+		alertBox.classList.add("show");
+	}, 10); // 少し遅延させてアニメーションをスムーズにする
+
+	// 指定時間後にフェードアウト
+	setTimeout(() => {
+		alertBox.classList.add("hide");
+		setTimeout(() => alertBox.remove(), 500); // アニメーション完了後に削除
+	}, duration);
+}
