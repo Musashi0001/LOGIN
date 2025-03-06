@@ -69,12 +69,19 @@ document.getElementById("register-form").addEventListener("submit", async (event
 			if (error.includes("ユーザー名")) {
 				showError(username, "このユーザー名は既に使用されています", true);
 			}
-			if (error.includes("パスワード")) {
+			if (error.includes("8文字以上")) {
+				showError(password, "パスワードは8文字以上で英数字大文字小文字をそれぞれ含む必要があります", true);
+			}
+			if (error.includes("一致しません")) {
 				showError(confirmPassword, "パスワードが一致しません", true);
 			}
 		});
 		return;
 	}
+	
+	console.log(email.value, password.value);
+	
+	document.getElementById("login-email").value = email.value;
 
 	showCustomAlert("登録が完了しました！ログインしてください", "success");
 	document.getElementById("show-login").click();

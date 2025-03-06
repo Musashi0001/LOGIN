@@ -59,6 +59,10 @@ public class AuthController {
 			errors.add("このユーザー名は既に使用されています");
 		}
 
+		if (!isValidPassword(password)) {
+			errors.add("パスワードは8文字以上で英数字大文字小文字をそれぞれ含む必要があります");
+		}
+
 		if (!password.equals(confirmPassword)) {
 			errors.add("パスワードが一致しません");
 		}
@@ -71,6 +75,11 @@ public class AuthController {
 
 		userService.registerUser(username, email, password);
 		return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "ユーザー登録が完了しました"));
+	}
+
+	// パスワードの形式チェックメソッド
+	private boolean isValidPassword(String password) {
+		return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
 	}
 
 	@GetMapping("/generate-username")
