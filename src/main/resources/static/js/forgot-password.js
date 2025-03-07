@@ -51,7 +51,7 @@ async function sendVerificationCode(email, button, isResend = false) {
 			}, 1500); // 1.5秒後に認証コード入力画面へ
 		}
 	} else {
-		showError(document.getElementById("reset-email"), await response.text(), true);
+		showError(document.getElementById("reset-email"), "エラーが発生しました。もう一度お試しください", true);
 	}
 
 	// ボタンを元に戻す（再送の場合は5秒待機）
@@ -93,23 +93,28 @@ document.getElementById("reset-password-form").addEventListener("submit", async 
 	const password = document.getElementById("new-password");
 	const confirmPassword = document.getElementById("confirm-password");
 
-	if (password.value !== confirmPassword.value) {
-		showError(confirmPassword, "パスワードが一致しません", true);
-		return;
-	}
-
 	const response = await fetch("/api/auth/reset-password", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ email: email.value, password: password.value })
+		body: JSON.stringify({ email: email.value, password: password.value, confirmPassword: confirmPassword.value })
 	});
 
-	if (response.ok) {
-		showCustomAlert("パスワードがリセットされました。ログインしてください。", "success");
-		setTimeout(() => {
-			window.location.href = "/index.html"; // 3秒後にログイン画面へ遷移
-		}, 3000);
-	} else {
+	const responseData = await response.json();
+
+	if (!response.ok) {
+		// サーバーからのエラーメッセージを表示
+		responseData.errors.forEach(error => {
+			if (error.includes("8文字以上")) {
+				showError(password, error, true);
+			}
+			if (error.includes("一致しません")) {
+				console.log(error, password.value, confirmPassword.value)
+				showError(confirmPassword, error, true);
+			}
+		});
+		return;
+	}
+	else {
 		showError(password, await response.text(), true);
 	}
 });

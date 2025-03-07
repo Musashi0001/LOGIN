@@ -39,6 +39,7 @@ function createThemeToggleButton() {
 	style.textContent = `
         #theme-toggle {
             position: fixed;
+			margin: 0;
             top: 10px;
             left: 10px;
             background: rgba(255, 255, 255, 0.7);

@@ -64,16 +64,16 @@ document.getElementById("register-form").addEventListener("submit", async (event
 	if (!response.ok) {
 		responseData.errors.forEach(error => {
 			if (error.includes("メールアドレス")) {
-				showError(email, "このメールアドレスは既に登録されています", true);
+				showError(email, error, true);
 			}
 			if (error.includes("ユーザー名")) {
-				showError(username, "このユーザー名は既に使用されています", true);
+				showError(username, error, true);
 			}
 			if (error.includes("8文字以上")) {
-				showError(password, "パスワードは8文字以上で英数字大文字小文字をそれぞれ含む必要があります", true);
+				showError(password, error, true);
 			}
 			if (error.includes("一致しません")) {
-				showError(confirmPassword, "パスワードが一致しません", true);
+				showError(confirmPassword, error, true);
 			}
 		});
 		return;
